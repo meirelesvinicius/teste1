@@ -1,577 +1,279 @@
+
 /* =========================================
-LOADER PREMIUM
+LOADER
 ========================================= */
 
 window.addEventListener("load", () => {
-
     setTimeout(() => {
-
         const loader = document.getElementById("loader");
-
-        if (loader) {
-
-            loader.style.transition = "opacity 1s ease";
-            loader.style.opacity = "0";
-
-            setTimeout(() => {
-                loader.remove();
-            }, 1000);
-
-        }
-
+        if (loader) loader.style.display = "none";
     }, 2500);
-
 });
 
 /* =========================================
-SCROLL PROGRESS
+HEADER SCROLL
 ========================================= */
 
 window.addEventListener("scroll", () => {
-
-    const totalHeight =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
-
-    const progress =
-        (window.scrollY / totalHeight) * 100;
-
-    const bar =
-        document.getElementById("scrollProgress");
-
-    if (bar) {
-        bar.style.width = progress + "%";
-    }
-
-});
-
-/* =========================================
-HEADER PREMIUM
-========================================= */
-
-window.addEventListener("scroll", () => {
-
     const header = document.querySelector("header");
-
-    if (!header) return;
-
     if (window.scrollY > 80) {
         header.classList.add("scrolled");
     } else {
         header.classList.remove("scrolled");
     }
 
+    // scroll progress bar
+    const scrollProgress = document.getElementById("scrollProgress");
+    if (scrollProgress) {
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        scrollProgress.style.width = progress + "%";
+    }
 });
 
 /* =========================================
-CURSOR NEON
+CURSOR PREMIUM
 ========================================= */
 
 const cursor = document.getElementById("cursor");
 
 if (cursor) {
-
     document.addEventListener("mousemove", (e) => {
-
         cursor.style.left = e.clientX + "px";
         cursor.style.top = e.clientY + "px";
-
     });
-
 }
 
 /* =========================================
-SPOTLIGHT
+SPOTLIGHT EFFECT
 ========================================= */
 
-const spotlight =
-    document.getElementById("spotlight");
+document.addEventListener("mousemove", (e) => {
+    const spotlight = document.getElementById("spotlight");
+    if (!spotlight) return;
 
-if (spotlight) {
-
-    document.addEventListener("mousemove", (e) => {
-
-        spotlight.style.background = `
-        radial-gradient(
-            circle 250px at
-            ${e.clientX}px
-            ${e.clientY}px,
-            rgba(123,63,255,.18),
-            transparent 70%
-        )`;
-
-    });
-
-}
-
-/* =========================================
-SEÇÃO ATIVA
-========================================= */
-
-const sections =
-    document.querySelectorAll("section");
-
-const navLinks =
-    document.querySelectorAll("nav a");
-
-window.addEventListener("scroll", () => {
-
-    let current = "";
-
-    sections.forEach(section => {
-
-        const top =
-            section.offsetTop - 180;
-
-        if (window.scrollY >= top) {
-
-            current =
-                section.getAttribute("id");
-
-        }
-
-    });
-
-    navLinks.forEach(link => {
-
-        link.classList.remove("active");
-
-        if (
-            link.getAttribute("href") ===
-            "#" + current
-        ) {
-            link.classList.add("active");
-        }
-
-    });
-
+    spotlight.style.setProperty("--x", e.clientX + "px");
+    spotlight.style.setProperty("--y", e.clientY + "px");
 });
 
 /* =========================================
-MENU MOBILE
+CARRINHO
 ========================================= */
 
-const menuToggle =
-    document.getElementById("menuToggle");
+let carrinho = [];
 
-const nav =
-    document.querySelector("nav");
-
-if (menuToggle && nav) {
-
-    menuToggle.addEventListener(
-        "click",
-        () => {
-            nav.classList.toggle("open");
-        }
-    );
-
+function abrirCarrinho() {
+    document.getElementById("modalCarrinho").style.display = "flex";
+    renderCarrinho();
 }
 
-/* =========================================
-FAVORITOS
-========================================= */
+function fecharCarrinho() {
+    document.getElementById("modalCarrinho").style.display = "none";
+}
 
-let favoritos =
-JSON.parse(
-localStorage.getItem(
-"stage_favoritos"
-)
-) || [];
+function adicionarCarrinho(nome, preco) {
+    carrinho.push({ nome, preco });
+    atualizarBadge();
+    renderCarrinho();
+}
 
-function ativarFavoritos() {
+function atualizarBadge() {
+    const badge = document.getElementById("carrinho-badge");
+    if (badge) badge.innerText = carrinho.length;
+}
 
-    const cards =
-        document.querySelectorAll(".produto-card");
+function renderCarrinho() {
+    const container = document.getElementById("itens-carrinho");
+    const totalEl = document.getElementById("total-carrinho");
 
-    cards.forEach((card, index) => {
+    if (!container || !totalEl) return;
 
-        if (
-            card.querySelector(".favorite-btn")
-        ) return;
+    container.innerHTML = "";
 
-        if (!produtos[index]) return;
+    let total = 0;
 
-        const id =
-            produtos[index].id;
+    carrinho.forEach((item, index) => {
+        total += item.preco;
 
-        const btn =
-            document.createElement("button");
+        const div = document.createElement("div");
+        div.style.display = "flex";
+        div.style.justifyContent = "space-between";
+        div.style.marginBottom = "10px";
 
-        btn.className =
-            "favorite-btn";
+        div.innerHTML = `
+            <span>${item.nome}</span>
+            <span>R$ ${item.preco.toFixed(2)}</span>
+        `;
 
-        btn.innerHTML =
-            favoritos.includes(id)
-            ? "❤️"
-            : "🤍";
-
-        if (
-            favoritos.includes(id)
-        ) {
-            btn.classList.add("active");
-        }
-
-        btn.onclick = (e) => {
-
-            e.stopPropagation();
-
-            if (
-                favoritos.includes(id)
-            ) {
-
-                favoritos =
-                favoritos.filter(
-                    fav => fav !== id
-                );
-
-                btn.innerHTML = "🤍";
-                btn.classList.remove("active");
-
-            } else {
-
-                favoritos.push(id);
-
-                btn.innerHTML = "❤️";
-                btn.classList.add("active");
-
-            }
-
-            localStorage.setItem(
-                "stage_favoritos",
-                JSON.stringify(favoritos)
-            );
-
-        };
-
-        card.appendChild(btn);
-
+        container.appendChild(div);
     });
 
+    totalEl.innerText = total.toFixed(2);
+}
+
+function limparCarrinho() {
+    carrinho = [];
+    atualizarBadge();
+    renderCarrinho();
 }
 
 /* =========================================
-BADGES
+FINALIZAR PEDIDO WHATSAPP
 ========================================= */
 
-function adicionarBadges() {
+function finalizarPedido() {
+    if (carrinho.length === 0) return;
 
-    const cards =
-        document.querySelectorAll(".produto-card");
+    let msg = "Olá! Gostaria de comprar:%0A";
 
-    cards.forEach((card, index) => {
-
-        if (index !== 0) return;
-
-        if (card.querySelector(".badge"))
-            return;
-
-        const badge =
-            document.createElement("div");
-
-        badge.className = "badge";
-        badge.innerText = "DESTAQUE";
-
-        card.appendChild(badge);
-
+    carrinho.forEach(item => {
+        msg += `- ${item.nome} (R$ ${item.preco.toFixed(2)})%0A`;
     });
 
+    const url = `https://wa.me/5544997087954?text=${msg}`;
+    window.open(url, "_blank");
 }
 
 /* =========================================
-ESTRELAS
+PRODUTOS (DEMO)
 ========================================= */
 
-function adicionarEstrelas() {
+const produtos = [
+    { nome: "Óleo Premium 5W30", preco: 89.90, categoria: "oleo" },
+    { nome: "Filtro de Ar Esportivo", preco: 120.00, categoria: "acessorio" },
+    { nome: "Pneu Performance", preco: 450.00, categoria: "pneu" },
+    { nome: "Bateria Bosch", preco: 380.00, categoria: "bateria" }
+];
 
-    document
-    .querySelectorAll(".produto-card")
-    .forEach(card => {
+function renderProdutos(lista = produtos) {
+    const grid = document.getElementById("produtos-grid");
+    if (!grid) return;
 
-        if (
-            card.querySelector(".rating")
-        ) return;
+    grid.innerHTML = "";
 
-        const rating =
-            document.createElement("div");
+    lista.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "produto-card";
 
-        rating.className = "rating";
-        rating.innerHTML = "★★★★★";
+        card.innerHTML = `
+            <h3>${p.nome}</h3>
+            <p>R$ ${p.preco.toFixed(2)}</p>
+            <button onclick="adicionarCarrinho('${p.nome}', ${p.preco})">
+                Adicionar
+            </button>
+        `;
 
-        card.appendChild(rating);
-
+        grid.appendChild(card);
     });
+}
 
+renderProdutos();
+
+/* =========================================
+FILTRO DE PRODUTOS
+========================================= */
+
+function filtrarProdutos(categoria, btn) {
+    const botoes = document.querySelectorAll(".categoria-btn");
+    botoes.forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    if (categoria === "todos") {
+        renderProdutos(produtos);
+    } else {
+        const filtrados = produtos.filter(p => p.categoria === categoria);
+        renderProdutos(filtrados);
+    }
 }
 
 /* =========================================
-BUSCA PRODUTOS
+BUSCA DE PRODUTOS
 ========================================= */
 
-const busca =
-document.getElementById(
-"buscaProduto"
-);
+const busca = document.getElementById("buscaProduto");
 
 if (busca) {
+    busca.addEventListener("input", (e) => {
+        const valor = e.target.value.toLowerCase();
 
-    busca.addEventListener(
-        "input",
-        function () {
+        const filtrados = produtos.filter(p =>
+            p.nome.toLowerCase().includes(valor)
+        );
 
-            const termo =
-            this.value.toLowerCase();
-
-            const filtrados =
-            produtos.filter(produto =>
-                produto.nome
-                .toLowerCase()
-                .includes(termo)
-                ||
-                produto.marca
-                .toLowerCase()
-                .includes(termo)
-            );
-
-            renderizarProdutos(
-                filtrados
-            );
-
-            setTimeout(() => {
-
-                ativarFavoritos();
-                adicionarBadges();
-                adicionarEstrelas();
-
-            }, 50);
-
-        }
-    );
-
-}
-
-/* =========================================
-CONTADORES
-========================================= */
-
-function animarNumero(
-    elemento,
-    final,
-    sufixo = ""
-) {
-
-    let atual = 0;
-
-    const incremento =
-        final / 60;
-
-    const timer =
-        setInterval(() => {
-
-            atual += incremento;
-
-            if (atual >= final) {
-
-                atual = final;
-                clearInterval(timer);
-
-            }
-
-            elemento.innerHTML =
-                Math.floor(atual)
-                + sufixo;
-
-        }, 25);
-
-}
-
-const contadorObserver =
-new IntersectionObserver(
-(entries) => {
-
-    entries.forEach(entry => {
-
-        if (
-            !entry.isIntersecting
-        ) return;
-
-        const h2 =
-            entry.target.querySelector("h2");
-
-        if (!h2) return;
-
-        if (
-            h2.dataset.animado
-        ) return;
-
-        h2.dataset.animado = true;
-
-        const texto =
-            h2.innerText;
-
-        if (texto.includes("300")) {
-            animarNumero(h2,300,"+");
-        }
-
-        if (texto.includes("24")) {
-            animarNumero(h2,24,"h");
-        }
-
-        if (texto.includes("100")) {
-            animarNumero(h2,100,"%");
-        }
-
+        renderProdutos(filtrados);
     });
-
-});
-
-document
-.querySelectorAll(".stat-box")
-.forEach(box => {
-
-    contadorObserver.observe(box);
-
-});
+}
 
 /* =========================================
-LIGHTBOX
+MODAL ORÇAMENTO
 ========================================= */
 
-function ativarGaleria() {
+function abrirOrcamento() {
+    document.getElementById("modalOrcamento").style.display = "flex";
+}
 
-    const lightbox =
-    document.getElementById(
-    "lightbox"
-    );
+function fecharOrcamento() {
+    document.getElementById("modalOrcamento").style.display = "none";
+}
 
-    const lightboxImg =
-    document.getElementById(
-    "lightboxImg"
-    );
+function enviarOrcamento() {
+    const marca = document.getElementById("marca").value;
+    const servico = document.getElementById("servico").value;
 
-    if (!lightbox || !lightboxImg)
-        return;
+    const msg = `Orçamento:%0AMarca: ${marca}%0AServiço: ${servico}`;
 
-    document
-    .querySelectorAll(".gallery-item")
-    .forEach(img => {
+    window.open(`https://wa.me/5544997087954?text=${msg}`, "_blank");
+}
 
-        img.addEventListener(
-        "click",
-        () => {
+/* =========================================
+LIGHTBOX GALERIA
+========================================= */
 
-            lightbox.style.display =
-            "flex";
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
 
-            lightboxImg.src =
-            img.src;
-
-        });
-
+document.querySelectorAll(".gallery-item").forEach(img => {
+    img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
     });
+});
 
-}
-
-const closeLightbox =
-document.getElementById(
-"closeLightbox"
-);
-
-if (closeLightbox) {
-
-    closeLightbox.onclick = () => {
-
-        document.getElementById(
-        "lightbox"
-        ).style.display = "none";
-
-    };
-
-}
+document.getElementById("closeLightbox").addEventListener("click", () => {
+    lightbox.style.display = "none";
+});
 
 /* =========================================
-SLIDER DEPOIMENTOS
+WHATSAPP POPUP AUTO
 ========================================= */
 
-function iniciarSlider() {
+setTimeout(() => {
+    const popup = document.getElementById("whatsPopup");
+    if (popup) popup.style.display = "block";
+}, 4000);
 
-    const slider =
-    document.querySelector(
-    ".depoimentos-slider"
-    );
+/* =========================================
+MENU MOBILE (BÁSICO)
+========================================= */
 
-    if (!slider) return;
+const menuToggle = document.getElementById("menuToggle");
+const nav = document.querySelector("nav");
 
-    let pos = 0;
-
-    setInterval(() => {
-
-        pos += 380;
-
-        if (
-        pos >= slider.scrollWidth
-        ) {
-            pos = 0;
+if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+        if (nav.style.display === "flex") {
+            nav.style.display = "none";
+        } else {
+            nav.style.display = "flex";
+            nav.style.flexDirection = "column";
+            nav.style.position = "absolute";
+            nav.style.top = "80px";
+            nav.style.right = "20px";
+            nav.style.background = "rgba(0,0,0,.9)";
+            nav.style.padding = "20px";
+            nav.style.borderRadius = "12px";
         }
-
-        slider.scrollTo({
-            left: pos,
-            behavior: "smooth"
-        });
-
-    }, 3500);
-
-}
-
-/* =========================================
-PARALLAX PREMIUM
-========================================= */
-
-document.addEventListener(
-"mousemove",
-(e) => {
-
-    const carro =
-    document.querySelector(
-    ".hero-car img"
-    );
-
-    if (!carro) return;
-
-    const x =
-    (
-        e.clientX /
-        window.innerWidth - 0.5
-    ) * 30;
-
-    const y =
-    (
-        e.clientY /
-        window.innerHeight - 0.5
-    ) * 20;
-
-    carro.style.transform =
-    `translate(${x}px,${y}px)
-    rotateY(${x/5}deg)`;
-
-});
-
-/* =========================================
-INICIALIZAÇÃO
-========================================= */
-
-window.addEventListener("load", () => {
-
-    ativarFavoritos();
-    adicionarBadges();
-    adicionarEstrelas();
-    ativarGaleria();
-    iniciarSlider();
-
-    document
-    .querySelectorAll("img")
-    .forEach(img => {
-        img.loading = "lazy";
     });
-
-});
+}
