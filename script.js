@@ -2,26 +2,24 @@
 LOADER PREMIUM
 ========================================= */
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
 
-setTimeout(() => {
+    setTimeout(() => {
 
-const loader =
-document.getElementById('loader');
+        const loader = document.getElementById("loader");
 
-if(loader){
+        if (loader) {
 
-loader.style.opacity = '0';
+            loader.style.transition = "opacity 1s ease";
+            loader.style.opacity = "0";
 
-setTimeout(() => {
+            setTimeout(() => {
+                loader.remove();
+            }, 1000);
 
-loader.remove();
+        }
 
-},1000);
-
-}
-
-},3000);
+    }, 2500);
 
 });
 
@@ -29,47 +27,123 @@ loader.remove();
 SCROLL PROGRESS
 ========================================= */
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
 
-const totalHeight =
-document.documentElement.scrollHeight -
-window.innerHeight;
+    const totalHeight =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
 
-const progress =
-(window.scrollY / totalHeight) * 100;
+    const progress =
+        (window.scrollY / totalHeight) * 100;
 
-const progressBar =
-document.getElementById('scrollProgress');
+    const bar =
+        document.getElementById("scrollProgress");
 
-if(progressBar){
-
-progressBar.style.width =
-progress + '%';
-
-}
+    if (bar) {
+        bar.style.width = progress + "%";
+    }
 
 });
 
 /* =========================================
-HEADER INTELIGENTE
+HEADER PREMIUM
 ========================================= */
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
 
-const header =
-document.querySelector('header');
+    const header = document.querySelector("header");
 
-if(!header) return;
+    if (!header) return;
 
-if(window.scrollY > 80){
+    if (window.scrollY > 80) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
 
-header.classList.add('scrolled');
+});
 
-}else{
+/* =========================================
+CURSOR NEON
+========================================= */
 
-header.classList.remove('scrolled');
+const cursor = document.getElementById("cursor");
+
+if (cursor) {
+
+    document.addEventListener("mousemove", (e) => {
+
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+    });
 
 }
+
+/* =========================================
+SPOTLIGHT
+========================================= */
+
+const spotlight =
+    document.getElementById("spotlight");
+
+if (spotlight) {
+
+    document.addEventListener("mousemove", (e) => {
+
+        spotlight.style.background = `
+        radial-gradient(
+            circle 250px at
+            ${e.clientX}px
+            ${e.clientY}px,
+            rgba(123,63,255,.18),
+            transparent 70%
+        )`;
+
+    });
+
+}
+
+/* =========================================
+SEÇÃO ATIVA
+========================================= */
+
+const sections =
+    document.querySelectorAll("section");
+
+const navLinks =
+    document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const top =
+            section.offsetTop - 180;
+
+        if (window.scrollY >= top) {
+
+            current =
+                section.getAttribute("id");
+
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (
+            link.getAttribute("href") ===
+            "#" + current
+        ) {
+            link.classList.add("active");
+        }
+
+    });
 
 });
 
@@ -78,227 +152,19 @@ MENU MOBILE
 ========================================= */
 
 const menuToggle =
-document.getElementById('menuToggle');
-
-const navMenu =
-document.querySelector('nav');
-
-if(menuToggle && navMenu){
-
-menuToggle.addEventListener(
-'click',
-() => {
-
-navMenu.classList.toggle('open');
-
-}
-);
-
-}
-
-/* =========================================
-CURSOR NEON
-========================================= */
-
-const cursor =
-document.getElementById('cursor');
-
-document.addEventListener(
-'mousemove',
-(e)=>{
-
-if(cursor){
-
-cursor.style.left =
-e.clientX + 'px';
-
-cursor.style.top =
-e.clientY + 'px';
-
-}
-
-}
-);
-
-/* =========================================
-SPOTLIGHT
-========================================= */
-
-const spotlight =
-document.getElementById('spotlight');
-
-document.addEventListener(
-'mousemove',
-(e)=>{
-
-if(spotlight){
-
-spotlight.style.background =
-`
-radial-gradient(
-circle 250px at
-${e.clientX}px
-${e.clientY}px,
-rgba(123,63,255,.18),
-transparent 70%
-)
-`;
-
-}
-
-}
-);
-
-/* =========================================
-SEÇÃO ATIVA
-========================================= */
-
-const sections =
-document.querySelectorAll('section');
-
-const navLinks =
-document.querySelectorAll('nav a');
-
-window.addEventListener(
-'scroll',
-()=>{
-
-let current = '';
-
-sections.forEach(section => {
-
-const sectionTop =
-section.offsetTop - 180;
-
-if(window.scrollY >= sectionTop){
-
-current =
-section.getAttribute('id');
-
-}
-
-});
-
-navLinks.forEach(link => {
-
-link.classList.remove('active');
-
-if(
-link.getAttribute('href')
-=== '#' + current
-){
-
-link.classList.add('active');
-
-}
-
-});
-
-}
-);
-
-/* =========================================
-SCROLL SUAVE
-========================================= */
-
-document.querySelectorAll(
-'nav a'
-).forEach(link => {
-
-link.addEventListener(
-'click',
-function(e){
-
-const href =
-this.getAttribute('href');
-
-if(href.startsWith('#')){
-
-e.preventDefault();
-
-const target =
-document.querySelector(href);
-
-if(target){
-
-target.scrollIntoView({
-
-behavior:'smooth'
-
-});
-
-}
-
-}
-
-}
-);
-
-});
-
-/* =========================================
-ANIMAÇÃO MENU MOBILE
-========================================= */
-
-document.querySelectorAll(
-'nav a'
-).forEach(link=>{
-
-link.addEventListener(
-'click',
-()=>{
-
-if(navMenu){
-
-navMenu.classList.remove('open');
-
-}
-
-}
-);
-
-});
-/* =========================================
-BUSCA EM TEMPO REAL
-========================================= */
-
-const buscaInput =
-document.getElementById('buscaProduto');
-
-if(buscaInput){
-
-buscaInput.addEventListener(
-'input',
-function(){
-
-const termo =
-this.value.toLowerCase();
-
-const filtrados =
-produtos.filter(produto =>
-
-produto.nome
-.toLowerCase()
-.includes(termo)
-
-||
-
-produto.marca
-.toLowerCase()
-.includes(termo)
-
-);
-
-renderizarProdutos(
-filtrados
-);
-
-ativarFavoritos();
-
-ativarHover3D();
-
-}
-);
+    document.getElementById("menuToggle");
+
+const nav =
+    document.querySelector("nav");
+
+if (menuToggle && nav) {
+
+    menuToggle.addEventListener(
+        "click",
+        () => {
+            nav.classList.toggle("open");
+        }
+    );
 
 }
 
@@ -309,404 +175,317 @@ FAVORITOS
 let favoritos =
 JSON.parse(
 localStorage.getItem(
-'stage_favoritos'
+"stage_favoritos"
 )
 ) || [];
 
-/* =========================================
-RENDER FAVORITOS
-========================================= */
+function ativarFavoritos() {
 
-function ativarFavoritos(){
+    const cards =
+        document.querySelectorAll(".produto-card");
 
-document
-.querySelectorAll(
-'.produto-card'
-)
-.forEach((card,index)=>{
+    cards.forEach((card, index) => {
 
-if(
-card.querySelector(
-'.favorite-btn'
-)
-) return;
+        if (
+            card.querySelector(".favorite-btn")
+        ) return;
 
-const produto =
-document.querySelectorAll(
-'.produto-card'
-)[index];
+        if (!produtos[index]) return;
 
-if(!produto) return;
+        const id =
+            produtos[index].id;
 
-const id =
-produtos[index]
-? produtos[index].id
-: null;
+        const btn =
+            document.createElement("button");
 
-if(!id) return;
+        btn.className =
+            "favorite-btn";
 
-const fav =
-document.createElement(
-'button'
-);
+        btn.innerHTML =
+            favoritos.includes(id)
+            ? "❤️"
+            : "🤍";
 
-fav.className =
-'favorite-btn';
+        if (
+            favoritos.includes(id)
+        ) {
+            btn.classList.add("active");
+        }
 
-fav.innerHTML =
-favoritos.includes(id)
-? '❤️'
-: '🤍';
+        btn.onclick = (e) => {
 
-if(
-favoritos.includes(id)
-){
+            e.stopPropagation();
 
-fav.classList.add(
-'active'
-);
+            if (
+                favoritos.includes(id)
+            ) {
 
-}
+                favoritos =
+                favoritos.filter(
+                    fav => fav !== id
+                );
 
-fav.addEventListener(
-'click',
-(e)=>{
+                btn.innerHTML = "🤍";
+                btn.classList.remove("active");
 
-e.stopPropagation();
+            } else {
 
-if(
-favoritos.includes(id)
-){
+                favoritos.push(id);
 
-favoritos =
-favoritos.filter(
-f => f !== id
-);
+                btn.innerHTML = "❤️";
+                btn.classList.add("active");
 
-fav.innerHTML =
-'🤍';
+            }
 
-fav.classList.remove(
-'active'
-);
+            localStorage.setItem(
+                "stage_favoritos",
+                JSON.stringify(favoritos)
+            );
 
-}else{
+        };
 
-favoritos.push(id);
+        card.appendChild(btn);
 
-fav.innerHTML =
-'❤️';
-
-fav.classList.add(
-'active'
-);
-
-}
-
-localStorage.setItem(
-'stage_favoritos',
-JSON.stringify(
-favoritos
-)
-);
-
-}
-);
-
-card.appendChild(fav);
-
-});
+    });
 
 }
 
 /* =========================================
-BADGE PROMOÇÃO
+BADGES
 ========================================= */
 
-function adicionarBadges(){
+function adicionarBadges() {
 
-document
-.querySelectorAll(
-'.produto-card'
-)
-.forEach((card,index)=>{
+    const cards =
+        document.querySelectorAll(".produto-card");
 
-if(index === 0){
+    cards.forEach((card, index) => {
 
-if(
-!card.querySelector(
-'.badge'
-)
-){
+        if (index !== 0) return;
 
-const badge =
-document.createElement(
-'div'
-);
+        if (card.querySelector(".badge"))
+            return;
 
-badge.className =
-'badge';
+        const badge =
+            document.createElement("div");
 
-badge.innerText =
-'DESTAQUE';
+        badge.className = "badge";
+        badge.innerText = "DESTAQUE";
 
-card.appendChild(
-badge
-);
+        card.appendChild(badge);
 
-}
-
-}
-
-});
+    });
 
 }
 
 /* =========================================
-AVALIAÇÃO ESTRELAS
+ESTRELAS
 ========================================= */
 
-function adicionarEstrelas(){
+function adicionarEstrelas() {
 
-document
-.querySelectorAll(
-'.produto-card'
-)
-.forEach(card => {
+    document
+    .querySelectorAll(".produto-card")
+    .forEach(card => {
 
-if(
-card.querySelector(
-'.rating'
-)
-) return;
+        if (
+            card.querySelector(".rating")
+        ) return;
 
-const rating =
-document.createElement(
-'div'
-);
+        const rating =
+            document.createElement("div");
 
-rating.className =
-'rating';
+        rating.className = "rating";
+        rating.innerHTML = "★★★★★";
 
-rating.innerHTML =
-'★★★★★';
+        card.appendChild(rating);
 
-card.appendChild(
-rating
-);
-
-});
+    });
 
 }
 
 /* =========================================
-HOVER PREMIUM
+BUSCA PRODUTOS
 ========================================= */
 
-function ativarHover3D(){
-
-document
-.querySelectorAll(
-'.produto-card, .servico-card'
-)
-.forEach(card => {
-
-card.addEventListener(
-'mousemove',
-e => {
-
-const rect =
-card.getBoundingClientRect();
-
-const x =
-e.clientX - rect.left;
-
-const y =
-e.clientY - rect.top;
-
-card.style.setProperty(
-'--x',
-x + 'px'
-);
-
-card.style.setProperty(
-'--y',
-y + 'px'
-);
-
-const rotateY =
-((x / rect.width)
-- 0.5)
-* 16;
-
-const rotateX =
-((y / rect.height)
-- 0.5)
-* -16;
-
-card.style.transform =
-`
-perspective(1000px)
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-translateY(-8px)
-`;
-
-}
-);
-
-card.addEventListener(
-'mouseleave',
-()=>{
-
-card.style.transform =
-'';
-
-}
-);
-
-});
-
-}
-
-/* =========================================
-ANIMAÇÃO CARRINHO
-========================================= */
-
-const adicionarOriginal =
-adicionarCarrinho;
-
-adicionarCarrinho =
-function(id){
-
-adicionarOriginal(id);
-
-const badge =
+const busca =
 document.getElementById(
-'carrinho-badge'
+"buscaProduto"
 );
 
-if(badge){
+if (busca) {
 
-badge.animate([
+    busca.addEventListener(
+        "input",
+        function () {
 
-{
-transform:'scale(1)'
-},
+            const termo =
+            this.value.toLowerCase();
 
-{
-transform:'scale(1.4)'
-},
+            const filtrados =
+            produtos.filter(produto =>
+                produto.nome
+                .toLowerCase()
+                .includes(termo)
+                ||
+                produto.marca
+                .toLowerCase()
+                .includes(termo)
+            );
 
-{
-transform:'scale(1)'
+            renderizarProdutos(
+                filtrados
+            );
+
+            setTimeout(() => {
+
+                ativarFavoritos();
+                adicionarBadges();
+                adicionarEstrelas();
+
+            }, 50);
+
+        }
+    );
+
 }
 
-],{
+/* =========================================
+CONTADORES
+========================================= */
 
-duration:400
+function animarNumero(
+    elemento,
+    final,
+    sufixo = ""
+) {
+
+    let atual = 0;
+
+    const incremento =
+        final / 60;
+
+    const timer =
+        setInterval(() => {
+
+            atual += incremento;
+
+            if (atual >= final) {
+
+                atual = final;
+                clearInterval(timer);
+
+            }
+
+            elemento.innerHTML =
+                Math.floor(atual)
+                + sufixo;
+
+        }, 25);
+
+}
+
+const contadorObserver =
+new IntersectionObserver(
+(entries) => {
+
+    entries.forEach(entry => {
+
+        if (
+            !entry.isIntersecting
+        ) return;
+
+        const h2 =
+            entry.target.querySelector("h2");
+
+        if (!h2) return;
+
+        if (
+            h2.dataset.animado
+        ) return;
+
+        h2.dataset.animado = true;
+
+        const texto =
+            h2.innerText;
+
+        if (texto.includes("300")) {
+            animarNumero(h2,300,"+");
+        }
+
+        if (texto.includes("24")) {
+            animarNumero(h2,24,"h");
+        }
+
+        if (texto.includes("100")) {
+            animarNumero(h2,100,"%");
+        }
+
+    });
 
 });
 
+document
+.querySelectorAll(".stat-box")
+.forEach(box => {
+
+    contadorObserver.observe(box);
+
+});
+
+/* =========================================
+LIGHTBOX
+========================================= */
+
+function ativarGaleria() {
+
+    const lightbox =
+    document.getElementById(
+    "lightbox"
+    );
+
+    const lightboxImg =
+    document.getElementById(
+    "lightboxImg"
+    );
+
+    if (!lightbox || !lightboxImg)
+        return;
+
+    document
+    .querySelectorAll(".gallery-item")
+    .forEach(img => {
+
+        img.addEventListener(
+        "click",
+        () => {
+
+            lightbox.style.display =
+            "flex";
+
+            lightboxImg.src =
+            img.src;
+
+        });
+
+    });
+
 }
-
-};
-
-/* =========================================
-INICIALIZAÇÃO
-========================================= */
-
-setTimeout(()=>{
-
-ativarFavoritos();
-
-adicionarBadges();
-
-adicionarEstrelas();
-
-ativarHover3D();
-
-},500);
-/* =========================================
-LIGHTBOX GALERIA
-========================================= */
-
-const lightbox =
-document.getElementById(
-'lightbox'
-);
-
-const lightboxImg =
-document.getElementById(
-'lightboxImg'
-);
 
 const closeLightbox =
 document.getElementById(
-'closeLightbox'
+"closeLightbox"
 );
 
-function ativarGaleria(){
+if (closeLightbox) {
 
-document
-.querySelectorAll(
-'.gallery-item'
-)
-.forEach(img => {
+    closeLightbox.onclick = () => {
 
-img.addEventListener(
-'click',
-()=>{
+        document.getElementById(
+        "lightbox"
+        ).style.display = "none";
 
-if(
-lightbox &&
-lightboxImg
-){
-
-lightbox.style.display =
-'flex';
-
-lightboxImg.src =
-img.src;
-
-}
-
-}
-);
-
-});
-
-}
-
-if(closeLightbox){
-
-closeLightbox.addEventListener(
-'click',
-()=>{
-
-lightbox.style.display =
-'none';
-
-}
-);
-
-}
-
-if(lightbox){
-
-lightbox.addEventListener(
-'click',
-e=>{
-
-if(e.target === lightbox){
-
-lightbox.style.display =
-'none';
-
-}
-
-}
-);
+    };
 
 }
 
@@ -714,419 +493,85 @@ lightbox.style.display =
 SLIDER DEPOIMENTOS
 ========================================= */
 
-function iniciarSlider(){
+function iniciarSlider() {
 
-const slider =
-document.querySelector(
-'.depoimentos-slider'
-);
+    const slider =
+    document.querySelector(
+    ".depoimentos-slider"
+    );
 
-if(!slider) return;
+    if (!slider) return;
 
-let scrollPos = 0;
+    let pos = 0;
 
-setInterval(()=>{
+    setInterval(() => {
 
-scrollPos += 380;
+        pos += 380;
 
-if(
-scrollPos >=
-slider.scrollWidth
-){
+        if (
+        pos >= slider.scrollWidth
+        ) {
+            pos = 0;
+        }
 
-scrollPos = 0;
+        slider.scrollTo({
+            left: pos,
+            behavior: "smooth"
+        });
 
-}
-
-slider.scrollTo({
-
-left:scrollPos,
-
-behavior:'smooth'
-
-});
-
-},3500);
+    }, 3500);
 
 }
 
 /* =========================================
-CONTADORES ANIMADOS
-========================================= */
-
-function animarContador(
-
-elemento,
-final,
-sufixo=''
-
-){
-
-let atual = 0;
-
-const incremento =
-final / 60;
-
-const timer =
-setInterval(()=>{
-
-atual += incremento;
-
-if(atual >= final){
-
-atual = final;
-
-clearInterval(timer);
-
-}
-
-elemento.innerHTML =
-Math.floor(atual)
-+
-sufixo;
-
-},25);
-
-}
-
-const contadorObserver =
-new IntersectionObserver(
-entries=>{
-
-entries.forEach(entry=>{
-
-if(
-entry.isIntersecting
-){
-
-const h2 =
-entry.target.querySelector(
-'h2'
-);
-
-if(!h2) return;
-
-if(
-h2.dataset.animado
-)
-return;
-
-h2.dataset.animado =
-'true';
-
-const texto =
-h2.innerText;
-
-if(
-texto.includes('300')
-){
-
-animarContador(
-h2,
-300,
-'+'
-);
-
-}
-
-if(
-texto.includes('24')
-){
-
-animarContador(
-h2,
-24,
-'h'
-);
-
-}
-
-if(
-texto.includes('100')
-){
-
-animarContador(
-h2,
-100,
-'%'
-);
-
-}
-
-}
-
-});
-
-});
-
-document
-.querySelectorAll(
-'.stat-box'
-)
-.forEach(box=>{
-
-contadorObserver.observe(
-box
-);
-
-});
-
-/* =========================================
-WHATS POPUP
-========================================= */
-
-setTimeout(()=>{
-
-const popup =
-document.getElementById(
-'whatsPopup'
-);
-
-if(popup){
-
-popup.style.opacity =
-'1';
-
-popup.style.transform =
-'translateY(0)';
-
-}
-
-},5000);
-
-/* =========================================
-SCROLL REVEAL PREMIUM
-========================================= */
-
-const revealObserver =
-new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(
-entry.isIntersecting
-){
-
-entry.target.animate([
-
-{
-opacity:0,
-transform:
-'translateY(60px) scale(.95)'
-},
-
-{
-opacity:1,
-transform:
-'translateY(0) scale(1)'
-}
-
-],{
-
-duration:1000,
-fill:'forwards'
-
-});
-
-}
-
-});
-
-},
-
-{
-threshold:.15
-}
-
-);
-
-document
-.querySelectorAll(
-
-'section,' +
-'.produto-card,' +
-'.servico-card,' +
-'.contato-card,' +
-'.depoimento-card,' +
-'.marca'
-
-)
-
-.forEach(el=>{
-
-revealObserver.observe(
-el
-);
-
-});
-
-/* =========================================
-FLOATING ELEMENTS
-========================================= */
-
-for(
-
-let i=0;
-i<12;
-i++
-
-){
-
-const glow =
-document.createElement(
-'div'
-);
-
-glow.className =
-'floating-glow';
-
-glow.style.left =
-Math.random()*100 + '%';
-
-glow.style.top =
-Math.random()*100 + '%';
-
-glow.style.width =
-50 + Math.random()*150 + 'px';
-
-glow.style.height =
-glow.style.width;
-
-glow.style.position =
-'fixed';
-
-glow.style.borderRadius =
-'50%';
-
-glow.style.pointerEvents =
-'none';
-
-glow.style.zIndex =
-'-2';
-
-glow.style.filter =
-'blur(60px)';
-
-glow.style.background =
-'rgba(123,63,255,.08)';
-
-glow.style.animation =
-`floatGlow ${
-8 + Math.random()*10
-}s infinite alternate`;
-
-document.body.appendChild(
-glow
-);
-
-}
-
-/* =========================================
-KEYFRAMES DINÂMICO
-========================================= */
-
-const style =
-document.createElement(
-'style'
-);
-
-style.innerHTML =
-
-`
-@keyframes floatGlow{
-
-0%{
-
-transform:
-translateY(0)
-translateX(0);
-
-}
-
-100%{
-
-transform:
-translateY(-80px)
-translateX(40px);
-
-}
-
-}
-`;
-
-document.head.appendChild(
-style
-);
-
-/* =========================================
-PARALLAX AVANÇADO
+PARALLAX PREMIUM
 ========================================= */
 
 document.addEventListener(
-'mousemove',
-e=>{
+"mousemove",
+(e) => {
 
-const hero =
-document.querySelector(
-'.hero-car img'
-);
+    const carro =
+    document.querySelector(
+    ".hero-car img"
+    );
 
-if(!hero) return;
+    if (!carro) return;
 
-const x =
-(
-e.clientX /
-window.innerWidth
-- .5
-) * 35;
+    const x =
+    (
+        e.clientX /
+        window.innerWidth - 0.5
+    ) * 30;
 
-const y =
-(
-e.clientY /
-window.innerHeight
-- .5
-) * 35;
+    const y =
+    (
+        e.clientY /
+        window.innerHeight - 0.5
+    ) * 20;
 
-hero.style.transform =
-`
-translate(
-${x}px,
-${y}px
-)
-rotateY(
-${x/5}deg
-)
-`;
-
-}
-);
-
-/* =========================================
-LAZY LOADING IMAGENS
-========================================= */
-
-document
-.querySelectorAll('img')
-.forEach(img=>{
-
-img.loading =
-'lazy';
+    carro.style.transform =
+    `translate(${x}px,${y}px)
+    rotateY(${x/5}deg)`;
 
 });
 
 /* =========================================
-INICIALIZAÇÃO FINAL
+INICIALIZAÇÃO
 ========================================= */
 
-window.addEventListener(
-'load',
-()=>{
+window.addEventListener("load", () => {
 
-ativarGaleria();
+    ativarFavoritos();
+    adicionarBadges();
+    adicionarEstrelas();
+    ativarGaleria();
+    iniciarSlider();
 
-iniciarSlider();
+    document
+    .querySelectorAll("img")
+    .forEach(img => {
+        img.loading = "lazy";
+    });
 
-}
-);
+});
