@@ -1,30 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stage Gaúcha Automotiva</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+
+<body>
+
 <!-- LOADER -->
 
 <div id="loader">
 
-    <div class="loader-content">
+<div class="loader-content">
 
-        <div class="loader-logo">
+<div class="loader-logo">
 
-            <div class="loader-circle">
-                S
-            </div>
+<div class="loader-circle">
+S
+</div>
 
-            <h1>STAGE GAÚCHA</h1>
-
-        </div>
-
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
-        </div>
-
-        <span>Inicializando sistema premium...</span>
-
-    </div>
+<h1>STAGE GAÚCHA</h1>
 
 </div>
 
-<!-- SCROLL PROGRESS -->
+<div class="loader-bar">
+
+<div class="loader-progress"></div>
+
+</div>
+
+<p>
+Inicializando sistema premium...
+</p>
+
+</div>
+
+</div>
+
+<!-- SCROLL BAR -->
 
 <div id="scrollProgress"></div>
 
@@ -36,9 +66,13 @@
 
 <div id="spotlight"></div>
 
-<!-- GRID CYBER -->
+<!-- GRID FUTURISTA -->
 
 <div class="cyber-grid"></div>
+
+<!-- PARTÍCULAS -->
+
+<div class="particles" id="particles"></div>
 
 <!-- MENU MOBILE -->
 
@@ -46,71 +80,424 @@
 ☰
 </button>
 
-<!-- HERO EXTRA -->
-<!-- COLOCAR DENTRO DE .hero-car -->
+<!-- HEADER -->
+
+<header id="header">
+
+<div class="logo">
+
+<div class="logo-circle">
+S
+</div>
+
+<span>
+STAGE GAÚCHA
+</span>
+
+</div>
+
+<nav id="navMenu">
+
+<a href="#home">Home</a>
+
+<a href="#empresa">Empresa</a>
+
+<a href="#servicos">Serviços</a>
+
+<a href="#produtos">Loja</a>
+
+<a href="#depoimentos">Avaliações</a>
+
+<a href="#galeria">Galeria</a>
+
+<a href="#marcas">Marcas</a>
+
+<a href="#contato">Contato</a>
+
+<button
+class="carrinho-btn"
+onclick="abrirCarrinho()">
+
+🛒
+
+<span
+id="carrinho-badge"
+class="carrinho-badge">
+
+0
+
+</span>
+
+</button>
+
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section
+class="hero"
+id="home">
 
 <div class="hero-glow"></div>
 
+<div class="hero-text">
+
+<span class="hero-tag">
+
+EXPERIÊNCIA PREMIUM
+
+</span>
+
+<h1>
+
+Performance
+<span>Extrema</span>
+
+</h1>
+
+<p>
+
+Tecnologia automotiva de última geração,
+diagnóstico inteligente,
+serviços premium
+e performance inspirada em Porsche,
+Tesla e Mercedes AMG.
+
+</p>
+
+<div class="hero-buttons">
+
+<a
+href="https://wa.me/5544997087954"
+target="_blank"
+class="btn btn-primary">
+
+Falar no WhatsApp
+
+</a>
+
+<button
+class="btn btn-secondary"
+onclick="abrirOrcamento()">
+
+Orçamento Inteligente
+
+</button>
+
+</div>
+
+<div class="stats">
+
+<div class="stat-box">
+
+<h2>300+</h2>
+
+<p>Serviços Realizados</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>24h</h2>
+
+<p>Atendimento</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>100%</h2>
+
+<p>Premium</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-car">
+
+<img
+src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600"
+alt="Carro Premium">
+
 <div class="hero-reflection"></div>
 
-<!-- BUSCA PRODUTOS -->
-<!-- COLOCAR DENTRO DA SEÇÃO #produtos -->
+<div class="floating-card">
+
+<h3>
+Stage Performance
+</h3>
+
+<p>
+
+Preparação,
+diagnóstico,
+manutenção premium
+e upgrades automotivos.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- EMPRESA -->
+
+<section id="empresa">
+
+<h2>
+Sobre a Stage Gaúcha
+</h2>
+
+<p>
+
+Especialistas em mecânica premium,
+diagnóstico eletrônico,
+manutenção preventiva
+e performance automotiva.
+
+</p>
+
+</section>
+
+<!-- SERVIÇOS -->
+
+<section id="servicos">
+
+<h2>
+Serviços Premium
+</h2>
+
+<div class="servicos-grid">
+
+<div class="servico-card">
+🚗
+<h3>Revisão Completa</h3>
+</div>
+
+<div class="servico-card">
+🛢️
+<h3>Troca de Óleo</h3>
+</div>
+
+<div class="servico-card">
+⚙️
+<h3>Injeção Eletrônica</h3>
+</div>
+
+<div class="servico-card">
+🛞
+<h3>Suspensão</h3>
+</div>
+
+<div class="servico-card">
+🔋
+<h3>Baterias</h3>
+</div>
+
+<div class="servico-card">
+🛑
+<h3>Freios</h3>
+</div>
+
+</div>
+
+</section>
+<!-- LOJA PREMIUM -->
+
+<section id="produtos">
+
+<div class="section-title">
+
+<h2>
+Loja Premium
+</h2>
+
+<p>
+Produtos selecionados para máxima performance.
+</p>
+
+</div>
 
 <div class="busca-container">
 
-    <input
-        type="text"
-        id="buscaProduto"
-        placeholder="Buscar produtos..."
-    >
+<input
+type="text"
+id="buscaProduto"
+placeholder="Buscar produtos..."
+>
 
 </div>
+
+<div class="categorias">
+
+<button
+class="categoria-btn active"
+onclick="filtrarProdutos('todos', this)">
+
+Todos
+
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrarProdutos('oleo', this)">
+
+Óleos
+
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrarProdutos('pneu', this)">
+
+Pneus
+
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrarProdutos('bateria', this)">
+
+Baterias
+
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrarProdutos('acessorio', this)">
+
+Acessórios
+
+</button>
+
+</div>
+
+<div
+class="produtos-grid"
+id="produtos-grid">
+
+</div>
+
+</section>
 
 <!-- DEPOIMENTOS -->
 
 <section id="depoimentos">
 
-    <h2>Clientes Satisfeitos</h2>
+<div class="section-title">
 
-    <div class="depoimentos-slider">
+<h2>
 
-        <div class="depoimento-card">
+Clientes Satisfeitos
 
-            <div class="stars">★★★★★</div>
+</h2>
 
-            <p>
-                Atendimento excelente e serviço impecável.
-            </p>
+<p>
 
-            <h4>Carlos Henrique</h4>
+Avaliações reais de clientes.
 
-        </div>
+</p>
 
-        <div class="depoimento-card">
+</div>
 
-            <div class="stars">★★★★★</div>
+<div class="depoimentos-slider">
 
-            <p>
-                Oficina premium, extremamente profissional.
-            </p>
+<div class="depoimento-card">
 
-            <h4>Rafael Martins</h4>
+<div class="stars">
 
-        </div>
+★★★★★
 
-        <div class="depoimento-card">
+</div>
 
-            <div class="stars">★★★★★</div>
+<p>
 
-            <p>
-                Melhor experiência automotiva da região.
-            </p>
+Atendimento excelente e serviço impecável.
 
-            <h4>Gustavo Lima</h4>
+</p>
 
-        </div>
+<h4>
 
-    </div>
+Carlos Henrique
+
+</h4>
+
+</div>
+
+<div class="depoimento-card">
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+<p>
+
+Oficina premium e extremamente profissional.
+
+</p>
+
+<h4>
+
+Rafael Martins
+
+</h4>
+
+</div>
+
+<div class="depoimento-card">
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+<p>
+
+Melhor experiência automotiva da região.
+
+</p>
+
+<h4>
+
+Gustavo Lima
+
+</h4>
+
+</div>
+
+<div class="depoimento-card">
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+<p>
+
+Meu carro ficou perfeito após a revisão.
+
+</p>
+
+<h4>
+
+Eduardo Silva
+
+</h4>
+
+</div>
+
+</div>
 
 </section>
 
@@ -118,31 +505,55 @@
 
 <section id="galeria">
 
-    <h2>Antes & Depois</h2>
+<div class="section-title">
 
-    <div class="galeria-grid">
+<h2>
 
-        <img
-        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200"
-        class="gallery-item"
-        alt="Galeria">
+Antes & Depois
 
-        <img
-        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200"
-        class="gallery-item"
-        alt="Galeria">
+</h2>
 
-        <img
-        src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200"
-        class="gallery-item"
-        alt="Galeria">
+<p>
 
-        <img
-        src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200"
-        class="gallery-item"
-        alt="Galeria">
+Alguns trabalhos realizados.
 
-    </div>
+</p>
+
+</div>
+
+<div class="galeria-grid">
+
+<img
+src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200"
+class="gallery-item"
+alt="">
+
+<img
+src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200"
+class="gallery-item"
+alt="">
+
+<img
+src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200"
+class="gallery-item"
+alt="">
+
+<img
+src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200"
+class="gallery-item"
+alt="">
+
+<img
+src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=1200"
+class="gallery-item"
+alt="">
+
+<img
+src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?q=80&w=1200"
+class="gallery-item"
+alt="">
+
+</div>
 
 </section>
 
@@ -150,50 +561,487 @@
 
 <section id="marcas">
 
-    <h2>Marcas Atendidas</h2>
+<div class="section-title">
 
-    <div class="marcas-grid">
+<h2>
 
-        <div class="marca">Volkswagen</div>
-        <div class="marca">Chevrolet</div>
-        <div class="marca">Fiat</div>
-        <div class="marca">Honda</div>
-        <div class="marca">Toyota</div>
-        <div class="marca">BMW</div>
-        <div class="marca">Audi</div>
-        <div class="marca">Mercedes</div>
+Marcas Atendidas
 
-    </div>
+</h2>
+
+<p>
+
+Especialistas em veículos nacionais e importados.
+
+</p>
+
+</div>
+
+<div class="marcas-grid">
+
+<div class="marca">
+
+Volkswagen
+
+</div>
+
+<div class="marca">
+
+Chevrolet
+
+</div>
+
+<div class="marca">
+
+Fiat
+
+</div>
+
+<div class="marca">
+
+Honda
+
+</div>
+
+<div class="marca">
+
+Toyota
+
+</div>
+
+<div class="marca">
+
+BMW
+
+</div>
+
+<div class="marca">
+
+Audi
+
+</div>
+
+<div class="marca">
+
+Mercedes
+
+</div>
+
+<div class="marca">
+
+Jeep
+
+</div>
+
+<div class="marca">
+
+Hyundai
+
+</div>
+
+<div class="marca">
+
+Nissan
+
+</div>
+
+<div class="marca">
+
+Renault
+
+</div>
+
+</div>
+
+</section>
+<!-- CONTATO -->
+
+<section id="contato">
+
+<div class="section-title">
+
+<h2>
+
+Entre em Contato
+
+</h2>
+
+<p>
+
+Fale com nossa equipe especializada.
+
+</p>
+
+</div>
+
+<div class="contato-info">
+
+<div class="contato-card">
+
+<div class="contato-icon">
+
+📱
+
+</div>
+
+<h3>
+
+WhatsApp
+
+</h3>
+
+<p>
+
+(44) 99708-7954
+
+</p>
+
+</div>
+
+<div class="contato-card">
+
+<div class="contato-icon">
+
+📧
+
+</div>
+
+<h3>
+
+E-mail
+
+</h3>
+
+<p>
+
+mecanicaautomotiva.gaucha@gmail.com
+
+</p>
+
+</div>
+
+<div class="contato-card">
+
+<div class="contato-icon">
+
+📍
+
+</div>
+
+<h3>
+
+Localização
+
+</h3>
+
+<p>
+
+Paraná - Brasil
+
+</p>
+
+</div>
+
+</div>
+
+<div class="mapa-container">
+
+<iframe
+src="https://www.google.com/maps?q=Maringa+PR&output=embed"
+loading="lazy"
+allowfullscreen>
+
+</iframe>
+
+</div>
 
 </section>
 
+<!-- MODAL CARRINHO -->
+
+<div
+class="modal"
+id="modalCarrinho">
+
+<div class="modal-content">
+
+<span
+class="fechar"
+onclick="fecharCarrinho()">
+
+×
+
+</span>
+
+<h2>
+
+Seu Carrinho
+
+</h2>
+
+<div id="itens-carrinho">
+
+</div>
+
+<div class="total-carrinho">
+
+<h3>
+
+Total:
+
+R$
+
+<span id="total-carrinho">
+
+0,00
+
+</span>
+
+</h3>
+
+</div>
+
+<div class="checkout-btns">
+
+<button
+class="btn btn-danger"
+onclick="limparCarrinho()">
+
+Limpar
+
+</button>
+
+<button
+class="btn btn-success"
+onclick="finalizarPedido()">
+
+WhatsApp
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MODAL ORÇAMENTO -->
+
+<div
+class="modal"
+id="modalOrcamento">
+
+<div class="modal-content">
+
+<span
+class="fechar"
+onclick="fecharOrcamento()">
+
+×
+
+</span>
+
+<h2>
+
+Orçamento Inteligente
+
+</h2>
+
+<select id="marca">
+
+<option value="">
+
+Selecione a Marca
+
+</option>
+
+<option>
+
+Volkswagen
+
+</option>
+
+<option>
+
+Chevrolet
+
+</option>
+
+<option>
+
+Fiat
+
+</option>
+
+<option>
+
+Honda
+
+</option>
+
+<option>
+
+Toyota
+
+</option>
+
+<option>
+
+BMW
+
+</option>
+
+<option>
+
+Audi
+
+</option>
+
+<option>
+
+Mercedes
+
+</option>
+
+</select>
+
+<select id="servico">
+
+<option value="">
+
+Selecione o Serviço
+
+</option>
+
+<option>
+
+Troca de Óleo
+
+</option>
+
+<option>
+
+Freios
+
+</option>
+
+<option>
+
+Suspensão
+
+</option>
+
+<option>
+
+Revisão Completa
+
+</option>
+
+<option>
+
+Injeção Eletrônica
+
+</option>
+
+</select>
+
+<button
+class="btn btn-primary"
+style="width:100%;margin-top:20px;"
+onclick="enviarOrcamento()">
+
+Solicitar Orçamento
+
+</button>
+
+</div>
+
+</div>
+
 <!-- LIGHTBOX -->
-<!-- COLOCAR ANTES DE </body> -->
 
 <div id="lightbox">
 
-    <span id="closeLightbox">
-        ×
-    </span>
+<span id="closeLightbox">
 
-    <img id="lightboxImg" alt="Imagem ampliada">
+×
+
+</span>
+
+<img
+id="lightboxImg"
+src=""
+alt="">
 
 </div>
 
-<!-- WHATSAPP POPUP -->
-<!-- COLOCAR ANTES DE </body> -->
+<!-- WHATSAPP FLOAT -->
+
+<a
+class="whatsapp"
+href="https://wa.me/5544997087954"
+target="_blank">
+
+💬
+
+</a>
+
+<!-- POPUP WHATS -->
 
 <div id="whatsPopup">
 
-    <div class="popup-header">
-        Stage Gaúcha
-    </div>
+<div class="popup-header">
 
-    <div class="popup-body">
-
-        Olá 👋<br>
-        Precisa de ajuda com seu veículo?
-
-    </div>
+Stage Gaúcha
 
 </div>
+
+<div class="popup-body">
+
+Olá 👋
+
+<br><br>
+
+Precisa de ajuda com seu veículo?
+
+<br><br>
+
+Nossa equipe está online.
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-content">
+
+<h3>
+
+STAGE GAÚCHA
+
+</h3>
+
+<p>
+
+Performance • Tecnologia • Qualidade
+
+</p>
+
+<span>
+
+© 2026 Stage Gaúcha Automotiva
+
+</span>
+
+</div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
